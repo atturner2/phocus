@@ -49,6 +49,7 @@ export const CreateUserScreen = ( navigation ) => {
         <Button
           title="Create New User"
           onPress={() => createNewUser(email, password, duplicatePassword).then(() => {
+            console.log("THis does execute");
             navigation.navigate("LoginScreen");
           })}
           style={styles.button}
