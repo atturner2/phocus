@@ -4,7 +4,8 @@ import { AuthenticationContext } from "../../../services/authentication.context"
 import { LoginScreen } from '../../login/screens/login.screen';
 
 
-export const CreateUserScreen = ( navigation ) => {
+
+export const CreateUserScreen = ( {navigation} ) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [duplicatePassword, setDuplicatePassword] = useState('')
@@ -12,7 +13,19 @@ export const CreateUserScreen = ( navigation ) => {
   
   const { createNewUser, error, isLoading } = useContext(AuthenticationContext);
 
- 
+  
+  const handleCreateUserPress = () => {
+    try {
+      
+      navigation.navigate("Login");
+      console.log("should be navigating");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  
+  
 
   return (
     <>
@@ -47,15 +60,14 @@ export const CreateUserScreen = ( navigation ) => {
       <View style={styles.buttonContainer}>
         {!isLoading ? (
         <Button
-          title="Create New User"
-          onPress={() => createNewUser(email, password, duplicatePassword).then(() => {
-            console.log("THis does execute");
-            navigation.navigate("LoginScreen");
-          })}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </Button>
+        title="Create New User"
+        onPress={() => createNewUser(email, password, duplicatePassword).then(() => {
+          handleCreateUserPress();
+        })}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Login</Text>
+      </Button>
         ): (
           <Text>no button</Text>
         ) }
@@ -64,6 +76,11 @@ export const CreateUserScreen = ( navigation ) => {
     </KeyboardAvoidingView>
     </>
   )
+
+
+  
+
+
 };
 
 
@@ -114,3 +131,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 })
+

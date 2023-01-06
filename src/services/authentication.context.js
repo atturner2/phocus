@@ -20,7 +20,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     //call the error checkers here with ALL of the user input info
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
-        console.log('REgistering user: ', user);
+        console.log('Registering user: ', user);
 
         setUser(userCredentials);
         console.log('Registered with:', user);
@@ -38,18 +38,20 @@ export const AuthenticationContextProvider = ({ children }) => {
     }
   };
 
-  const createNewUser = (email, password, duplicatePassword) => {
+  const createNewUser = async (email, password, duplicatePassword) => {
     validateNewUser(password, duplicatePassword);
     //validate passwords are equal
     setCreatingNewUser(true);
     setIsLoading(true);
     createUserRequest(email, password)
       .then(() => {
-        console.log("In the create user, calling handleSignUp");
+        console.log("In the create user, UPDATINGcalling handleSignUp");
         //handleSignUp(email, password)
         console.log("In the create user, after HandleSIgnup");
         setCreatingNewUser(false);
         setIsLoading(false);
+        console.log("In the create user, after HandleSIgnup");
+
       })
       .catch((error) => {
         console.log("error switching to the create user screen");
@@ -59,6 +61,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setError(error);
 
       });
+    
     };
 
  const handleLogin = (email, password) => {
